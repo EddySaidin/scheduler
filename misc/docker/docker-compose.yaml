@@ -10,7 +10,8 @@ services:
       - db:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=postgres
-        #command: postgres -c 'log_statement=all'
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=your_secure_password  # <-- Add this line
     networks:
       - db
   api:
@@ -23,7 +24,7 @@ services:
     ports:
       - 8080:8080
     environment:
-      - DSN=postgres://postgres:@db:5432/postgres?sslmode=disable
+      - DSN=postgres://postgres:your_secure_password@db:5432/postgres?sslmode=disable  # <-- Add password
     networks:
       - api
       - db
